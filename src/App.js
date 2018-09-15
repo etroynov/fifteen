@@ -10,8 +10,10 @@ import shuffle from 'lodash/shuffle';
  * Components
  */
 
-import Board from './components/Board';
 import Tile from './components/Tile';
+import Board from './components/Board';
+import Group from './components/Group';
+import Button from './components/Button';
 
 /**
  * Helpers
@@ -122,11 +124,11 @@ class App extends React.Component {
             />
           )}
         </Board>
-        <footer>
-          <button onClick={this.handleSlove}>Slove</button>
-          <button onClick={this.handleReset}>Reset</button>
-          <button onClick={this.handleTakeMoveBack}>previos</button>
-        </footer>
+        <Group>
+          <Button onClick={this.handleSlove}>Slove</Button>
+          <Button onClick={this.handleReset}>Reset</Button>
+          <Button onClick={this.handleTakeMoveBack}>previos</Button>
+        </Group>
       </section>
     );
   }
