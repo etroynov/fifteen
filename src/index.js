@@ -1,8 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+/**
+ * Vendor
+ */
+
+import * as React from 'react';
+import { render } from 'react-dom';
+
+/**
+ * Components
+ */
+
 import App from './App';
+
+/**
+ * Utils
+ */
+
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+/**
+ * Init
+ */
+
+render(
+  <App />,
+  document.body,
+);
+
 registerServiceWorker();
