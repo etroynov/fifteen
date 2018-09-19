@@ -3,8 +3,10 @@
  */
 
 import * as React from 'react';
+import thunk from 'redux-thunk';
+
 import { render } from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -25,12 +27,14 @@ import registerServiceWorker from './registerServiceWorker';
 /**
  * Store
  */
-
 const store = createStore(
   rootReducer,
-  composeWithDevTools(),
+  composeWithDevTools(
+    applyMiddleware(
+      thunk,
+    ),
+  ),
 );
-
 
 /**
  * Init

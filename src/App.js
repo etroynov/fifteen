@@ -5,6 +5,7 @@
 import * as React from 'react';
 import range from 'lodash/range';
 import shuffle from 'lodash/shuffle';
+import { connect } from 'react-redux';
 
 /**
  * Components
@@ -14,6 +15,12 @@ import Tile from './components/Tile';
 import Board from './components/Board';
 import Group from './components/Group';
 import Button from './components/Button';
+
+/**
+ * Actions
+ */
+
+import { saveMove, rollbackMove } from './actions/history';
 
 /**
  * Helpers
@@ -54,26 +61,9 @@ class App extends React.Component {
     const { tiles, coordinates } = this.state;
   }
 
-  handleSaveMove(coordinates) {
-    this.setState({
-      history: [
-        ...this.state.history,
-        coordinates,
-      ]
-    });
-  }
+  handleSaveMove = coordinates => this.props.saveMove(coordinates);
 
-  handleTakeMoveBack = () => {
-    const { history } = this.state;
-    const coordinates = history.pop();
-
-    if (coordinates == null) { return false; }
-
-    this.setState({
-      history,
-      coordinates,
-    });
-  }
+  handleTakeMoveBack = () => this.props.rollbackMove();
 
   moveTile(index) {
     if (!index) return null;
@@ -134,4 +124,9 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToPros = ({ history }) => ({ history });
+
+export default connect(
+  mapStateToPros,
+  { saveMove, rollbackMove }
+)(App);

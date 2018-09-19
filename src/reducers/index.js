@@ -9,6 +9,7 @@ import { combineReducers } from 'redux';
  */
 
 import board from './board';
+import history from './history';
 
 /**
  * Expo
@@ -16,4 +17,5 @@ import board from './board';
 
 export default combineReducers({
   board,
+  history,
 });
