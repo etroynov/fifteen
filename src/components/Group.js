@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 const Group = styled.section`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: 10px;
 
   background-color: #acceb3;

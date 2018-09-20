@@ -3,7 +3,9 @@
  */
 
 import * as React from 'react';
+
 import { connect } from 'react-redux';
+import { branch, compose, renderComponent } from 'recompose';
 
 /**
  * Components
@@ -13,6 +15,8 @@ import Tile from './components/Tile';
 import Board from './components/Board';
 import Group from './components/Group';
 import Button from './components/Button';
+import SessionDialog from './components/SessionDialog';
+import SuccessDialog from './components/SuccessDialog';
 
 /**
  * Actions
@@ -84,7 +88,10 @@ const mapDispatchToProps = {
   rollbackMove,
 };
 
-export default connect(
-  mapStateToPros,
-  mapDispatchToProps,
+export default compose(
+  connect(mapStateToPros, mapDispatchToProps),
+  branch(
+    ({ game }) => game.finish,
+    renderComponent(SuccessDialog),
+  ),
 )(App);

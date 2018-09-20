@@ -4,6 +4,7 @@
 
 import range from 'lodash/range';
 import shuffle from 'lodash/shuffle';
+import isEqual from 'lodash/isEqual'
 
 import { createReducer } from 'redux-act';
 
@@ -42,7 +43,9 @@ import {
  */
 
 const initialState = {
-  fetch: false,
+  fetch: true,
+  finish: false,
+  slove: [...range(1, COL * ROW), 0],
   tiles: range(0, COL * ROW),
   size: (TILE_SIZE * COL) + ((COL + 1) * GAP),
   grid: createGrid(COL, ROW, TILE_SIZE, GAP),
@@ -62,19 +65,23 @@ const board = createReducer(
       ...state,
       coordinates: shuffle(state.tiles),
       fetch: false,
+      finish: false,
     }),
 
     // MOVE TILE
     [requestMoveTile]: state => ({ ...state, fetch: true }),
-    [receiveMoveTile]: (state, { coordinates, previousState }) => ({
-      ...state,
-      coordinates,
-      history: [
-        ...state.history,
-        previousState,
-      ],
-      fetch: false,
-    }),
+    [receiveMoveTile]: (state, { coordinates, previousState }) => {
+      return {
+        ...state,
+        coordinates,
+        history: [
+          ...state.history,
+          previousState,
+        ],
+        fetch: false,
+        finish: isEqual(coordinates, state.slove),
+      };
+    },
 
     // ROLLBACK MOVE
     [requestRollbackMove]: state => ({

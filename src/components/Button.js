@@ -9,7 +9,9 @@ import styled from 'styled-components';
  */
 
 const Button = styled.button`
-  padding: 5px 10px;
+  min-width: 100px;
+  margin: 5px 20px;
+  padding: 10px 20px;
 
   text-transform: uppercase;
 
@@ -17,7 +19,7 @@ const Button = styled.button`
   border-radius: 2px;
   border: none;
 
-  cursor: pointer;
+  cursor: ${({ disabled }) => disabled ? 'not-allowed' : 'pointer' };
 `;
 
 export default Button;
